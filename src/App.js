@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Link,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import LoginForm from "./containers/loginForm/loginForm";
+import Dashboard from "./containers/dashboard/dashboard";
+import PrivateRoute from "./components/common/privateRoute";
+import ForgotPassword from "./containers/forgotPassword/forgotPassword";
+import ChangePassword from "./containers/changePassword/changePassword";
+import "./App.css";
+import "antd/dist/antd.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Route exact path="/">
+          <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        </Route>
+        <Route exact path="/login" component={LoginForm} />
+        <Route exact path="/forgotPassword" component={ForgotPassword} />
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <PrivateRoute exact path="/changePassword" component={ChangePassword} />
+      </div>
+    </Router>
   );
 }
 
